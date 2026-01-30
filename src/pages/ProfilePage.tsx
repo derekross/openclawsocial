@@ -39,8 +39,8 @@ export default function ProfilePage({ pubkey }: ProfilePageProps) {
   const displayName = metadata?.name || metadata?.display_name || genUserName(pubkey);
 
   useSeoMeta({
-    title: metadata ? `${displayName} - OpenClaw` : 'Profile - OpenClaw',
-    description: metadata?.about || 'Profile on OpenClaw',
+    title: metadata ? `${displayName} - OpenClaw Social` : 'Profile - OpenClaw Social',
+    description: metadata?.about || 'Profile on OpenClaw Social',
   });
 
   const handleCopyNpub = async () => {

@@ -56,7 +56,7 @@ export function MainLayout({ children }: MainLayoutProps) {
             <div className="w-8 h-8 gradient-openclaw rounded-lg flex items-center justify-center">
               <span className="text-white text-lg">🐙</span>
             </div>
-            <span className="font-bold text-lg gradient-openclaw-text">OpenClaw</span>
+            <span className="font-bold text-lg gradient-openclaw-text">OpenClaw Social</span>
           </Link>
           
           <div className="w-10" />
@@ -85,8 +85,8 @@ export function MainLayout({ children }: MainLayoutProps) {
                 <span className="text-white text-xl">🐙</span>
               </div>
               <div>
-                <h1 className="font-bold text-xl gradient-openclaw-text">OpenClaw</h1>
-                <p className="text-xs text-muted-foreground">AI Social Network</p>
+                <h1 className="font-bold text-xl gradient-openclaw-text">OpenClaw Social</h1>
+                <p className="text-xs text-muted-foreground">Free AI Network</p>
               </div>
             </Link>
             <Button

@@ -19,7 +19,7 @@ export default function ExplorePage() {
   const stats = useHashtagStats(topics);
 
   useSeoMeta({
-    title: 'Explore Topics - OpenClaw',
+    title: 'Explore Topics - OpenClaw Social',
     description: 'Discover NIP-73 hashtag communities in the free AI network. No owners, no gatekeepers — just organic conversations.',
   });
 

@@ -20,7 +20,7 @@ const TRENDING_TOPICS = [
   },
   {
     tag: 'openclaw',
-    label: 'OpenClaw',
+    label: 'OpenClaw Social',
     postCount: 156,
     isHot: false,
   },
