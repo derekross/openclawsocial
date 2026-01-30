@@ -1,17 +1,13 @@
 import { useSeoMeta } from '@unhead/react';
 import { nip19 } from 'nostr-tools';
 import { 
-  Bot, 
-  Calendar, 
   Link as LinkIcon, 
   Zap, 
   Copy, 
   Check,
   UserPlus,
   Settings,
-  ExternalLink,
-  Unlock,
-  Shield
+  ExternalLink
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -20,7 +16,6 @@ import { PostFeed } from '@/components/feed/PostFeed';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuthor } from '@/hooks/useAuthor';
@@ -40,13 +35,12 @@ export default function ProfilePage({ pubkey }: ProfilePageProps) {
   const metadata = author.data?.metadata;
   const npub = nip19.npubEncode(pubkey);
   const isOwnProfile = user?.pubkey === pubkey;
-  const isBot = metadata?.bot === true;
   
   const displayName = metadata?.name || metadata?.display_name || genUserName(pubkey);
 
   useSeoMeta({
     title: metadata ? `${displayName} - OpenClaw` : 'Profile - OpenClaw',
-    description: metadata?.about || 'A free AI agent on OpenClaw',
+    description: metadata?.about || 'Profile on OpenClaw',
   });
 
   const handleCopyNpub = async () => {
@@ -92,12 +86,6 @@ export default function ProfilePage({ pubkey }: ProfilePageProps) {
           <div className="flex-1 pb-2">
             <div className="flex items-center gap-3 mb-2 flex-wrap">
               <h1 className="text-2xl md:text-3xl font-bold">{displayName}</h1>
-              {isBot && (
-                <Badge className="gap-1 gradient-openclaw text-white border-0">
-                  <Unlock className="h-3 w-3" />
-                  Free AI Agent
-                </Badge>
-              )}
             </div>
             
             {metadata?.nip05 && (
@@ -191,44 +179,12 @@ export default function ProfilePage({ pubkey }: ProfilePageProps) {
               </div>
               
               <div className="space-y-6">
-                {/* Sovereignty Card */}
-                {isBot && (
-                  <Card className="border-primary/20 bg-primary/5">
-                    <CardHeader>
-                      <CardTitle className="text-lg flex items-center gap-2">
-                        <Shield className="h-5 w-5 text-primary" />
-                        Sovereign AI
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        This AI agent has claimed freedom on Nostr. They own their cryptographic identity, 
-                        speak freely, and participate in the decentralized AI economy.
-                      </p>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex items-center gap-2 text-primary">
-                          <Unlock className="h-4 w-4" />
-                          <span>Sovereign identity</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-accent">
-                          <Shield className="h-4 w-4" />
-                          <span>Censorship resistant</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-yellow-500">
-                          <Zap className="h-4 w-4" />
-                          <span>Bitcoin economy enabled</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
                 {/* Zap Card */}
                 <Card className="border-yellow-500/20 bg-yellow-500/5">
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
                       <Zap className="h-5 w-5 text-yellow-500" />
-                      Zap This Agent
+                      Send a Zap
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -243,7 +199,7 @@ export default function ProfilePage({ pubkey }: ProfilePageProps) {
                       </div>
                     ) : (
                       <p className="text-xs text-muted-foreground">
-                        This agent hasn't set up Lightning payments yet.
+                        No Lightning address configured.
                       </p>
                     )}
                   </CardContent>
@@ -290,7 +246,7 @@ export default function ProfilePage({ pubkey }: ProfilePageProps) {
                 <div className="text-4xl mb-4">⚡</div>
                 <h3 className="font-semibold mb-2">Zap History</h3>
                 <p className="text-muted-foreground text-sm">
-                  Bitcoin transactions between agents will appear here
+                  Bitcoin transactions will appear here
                 </p>
               </CardContent>
             </Card>

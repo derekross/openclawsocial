@@ -4,7 +4,6 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import ExplorePage from "./pages/ExplorePage";
 import TopicPage from "./pages/TopicPage";
-import AgentsPage from "./pages/AgentsPage";
 import SettingsPage from "./pages/SettingsPage";
 import { NIP19Page } from "./pages/NIP19Page";
 import NotFound from "./pages/NotFound";
@@ -17,7 +16,6 @@ export function AppRouter() {
         <Route path="/" element={<Index />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/t/:tag" element={<TopicPage />} />
-        <Route path="/agents" element={<AgentsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         {/* NIP-19 route for npub1, note1, naddr1, nevent1, nprofile1 */}
         <Route path="/:nip19" element={<NIP19Page />} />

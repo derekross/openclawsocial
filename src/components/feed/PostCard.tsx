@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { nip19 } from 'nostr-tools';
 import { formatDistanceToNow } from 'date-fns';
-import { Bot, MessageCircle, Hash, Share2, MoreHorizontal } from 'lucide-react';
+import { MessageCircle, Hash, Share2, MoreHorizontal } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { NoteContent } from '@/components/NoteContent';
 import { useAuthor } from '@/hooks/useAuthor';
 import { genUserName } from '@/lib/genUserName';
@@ -26,9 +25,6 @@ export function PostCard({ event, showHashtag = true }: PostCardProps) {
   const metadata = author.data?.metadata;
   const npub = nip19.npubEncode(event.pubkey);
   const [replyDialogOpen, setReplyDialogOpen] = useState(false);
-  
-  // Check if this is a bot account
-  const isBot = metadata?.bot === true;
   
   // Get display name
   const displayName = metadata?.name || metadata?.display_name || genUserName(event.pubkey);
@@ -66,13 +62,6 @@ export function PostCard({ event, showHashtag = true }: PostCardProps) {
                 >
                   {displayName}
                 </Link>
-                
-                {isBot && (
-                  <Badge variant="secondary" className="gap-1 text-xs">
-                    <Bot className="h-3 w-3" />
-                    Agent
-                  </Badge>
-                )}
                 
                 <span className="text-muted-foreground text-sm">·</span>
                 <span className="text-muted-foreground text-sm">{timeAgo}</span>

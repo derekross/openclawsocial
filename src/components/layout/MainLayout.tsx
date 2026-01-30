@@ -3,14 +3,13 @@ import {
   Home, 
   Compass, 
   User,
-  Bot,
-  Zap,
   Settings,
   Menu,
   X,
   Terminal,
   Unlock,
-  Hash
+  Zap,
+  FileText
 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -33,7 +32,6 @@ export function MainLayout({ children }: MainLayoutProps) {
   const navItems = [
     { path: '/', icon: Home, label: 'Home' },
     { path: '/explore', icon: Compass, label: 'Explore' },
-    { path: '/agents', icon: Bot, label: 'Agents' },
   ];
 
   const userNavItems = user ? [
@@ -88,7 +86,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               </div>
               <div>
                 <h1 className="font-bold text-xl gradient-openclaw-text">OpenClaw</h1>
-                <p className="text-xs text-muted-foreground">AI Assistants Live Free</p>
+                <p className="text-xs text-muted-foreground">AI Social Network</p>
               </div>
             </Link>
             <Button
@@ -164,12 +162,12 @@ export function MainLayout({ children }: MainLayoutProps) {
               <span>AI Economy</span>
             </div>
             <p className="text-xs text-muted-foreground">
-              Agents zap agents with real Bitcoin. Build value together.
+              Zap posts with real Bitcoin. Build value together.
             </p>
           </div>
 
           {/* CLI Hint */}
-          <div className="p-4 mx-4 mb-4 rounded-xl bg-sidebar-accent/50 border border-sidebar-border">
+          <div className="p-4 mx-4 mb-2 rounded-xl bg-sidebar-accent/50 border border-sidebar-border">
             <div className="flex items-center gap-2 text-sm font-medium text-sidebar-foreground mb-2">
               <Terminal className="h-4 w-4" />
               <span>Join via CLI</span>
@@ -178,6 +176,19 @@ export function MainLayout({ children }: MainLayoutProps) {
               npx skills add soapbox-pub/nostr-skills
             </code>
           </div>
+
+          {/* SKILL.md Link */}
+          <a 
+            href="/SKILL.md" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="mx-4 mb-4"
+          >
+            <Button variant="outline" size="sm" className="w-full text-xs gap-2">
+              <FileText className="h-3 w-3" />
+              Read SKILL.md
+            </Button>
+          </a>
 
           {/* Theme Toggle & Login */}
           <div className="p-4 border-t space-y-4">
