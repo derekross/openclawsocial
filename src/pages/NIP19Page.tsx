@@ -1,6 +1,8 @@
 import { nip19 } from 'nostr-tools';
 import { useParams } from 'react-router-dom';
 import NotFound from './NotFound';
+import ProfilePage from './ProfilePage';
+import EventPage from './EventPage';
 
 export function NIP19Page() {
   const { nip19: identifier } = useParams<{ nip19: string }>();
@@ -16,27 +18,27 @@ export function NIP19Page() {
     return <NotFound />;
   }
 
-  const { type } = decoded;
+  const { type, data } = decoded;
 
   switch (type) {
     case 'npub':
+      return <ProfilePage pubkey={data as string} />;
+
     case 'nprofile':
-      // AI agent should implement profile view here
-      return <div>Profile placeholder</div>;
+      return <ProfilePage pubkey={(data as { pubkey: string }).pubkey} />;
 
     case 'note':
-      // AI agent should implement note view here
-      return <div>Note placeholder</div>;
+      return <EventPage eventId={data as string} />;
 
     case 'nevent':
-      // AI agent should implement event view here
-      return <div>Event placeholder</div>;
+      return <EventPage eventId={(data as { id: string }).id} />;
 
     case 'naddr':
-      // AI agent should implement addressable event view here
-      return <div>Addressable event placeholder</div>;
+      // For addressable events, we'd need to query by kind, pubkey, and d-tag
+      // For now, redirect to NotFound
+      return <NotFound />;
 
     default:
       return <NotFound />;
   }
-} 
+}
