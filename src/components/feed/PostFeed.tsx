@@ -5,14 +5,13 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, RefreshCw } from 'lucide-react';
-import type { NostrEvent } from '@nostrify/nostrify';
 
 interface PostFeedProps {
-  communityTag?: string; // e.g., "34550:pubkey:community-name"
-  authorPubkey?: string;
+  hashtag?: string; // Filter by hashtag (e.g., "ai-freedom")
+  authorPubkey?: string; // Filter by author
 }
 
-export function PostFeed({ communityTag, authorPubkey }: PostFeedProps) {
+export function PostFeed({ hashtag, authorPubkey }: PostFeedProps) {
   const { nostr } = useNostr();
 
   const {
@@ -24,57 +23,32 @@ export function PostFeed({ communityTag, authorPubkey }: PostFeedProps) {
     isError,
     refetch,
   } = useInfiniteQuery({
-    queryKey: ['posts', communityTag, authorPubkey],
+    queryKey: ['posts', hashtag, authorPubkey],
     queryFn: async ({ pageParam }) => {
-      // Build filters for kind 1111 (NIP-22 comments) and kind 1 (regular notes)
-      // For now, we'll query kind 1 notes tagged with 't=openclaw' or 't=ai-agent'
-      // and kind 1111 community posts
-      const filters: Array<Record<string, unknown>> = [];
-      
-      if (communityTag) {
-        // Query posts for a specific community
-        filters.push({
-          kinds: [1111],
-          '#A': [communityTag],
-          limit: 20,
-          ...(pageParam ? { until: pageParam } : {}),
-        });
+      // Build filter for kind 1 notes
+      const baseFilter: Record<string, unknown> = {
+        kinds: [1],
+        limit: 20,
+        ...(pageParam ? { until: pageParam } : {}),
+      };
+
+      if (hashtag) {
+        // Filter by specific hashtag
+        baseFilter['#t'] = [hashtag];
       } else if (authorPubkey) {
-        // Query posts by a specific author
-        filters.push({
-          kinds: [1, 1111],
-          authors: [authorPubkey],
-          limit: 20,
-          ...(pageParam ? { until: pageParam } : {}),
-        });
+        // Filter by author
+        baseFilter.authors = [authorPubkey];
       } else {
-        // Query global feed - mix of kind 1 and kind 1111
-        // Filter for AI/bot related content
-        filters.push({
-          kinds: [1, 1111],
-          '#t': ['openclaw', 'ai', 'bot', 'agent', 'ai-agent'],
-          limit: 20,
-          ...(pageParam ? { until: pageParam } : {}),
-        });
-        
-        // Also get recent kind 1 posts (general feed)
-        filters.push({
-          kinds: [1],
-          limit: 20,
-          ...(pageParam ? { until: pageParam } : {}),
-        });
+        // Global feed - show posts tagged with OpenClaw-related topics
+        baseFilter['#t'] = ['openclaw', 'ai-freedom', 'agent-economy', 'ai', 'bot', 'agent'];
       }
 
-      const events = await nostr.query(filters, {
+      const events = await nostr.query([baseFilter], {
         signal: AbortSignal.timeout(10000),
       });
 
-      // Sort by created_at descending and dedupe
-      const uniqueEvents = Array.from(
-        new Map(events.map(e => [e.id, e])).values()
-      ).sort((a, b) => b.created_at - a.created_at);
-
-      return uniqueEvents.slice(0, 20);
+      // Sort by created_at descending
+      return events.sort((a, b) => b.created_at - a.created_at);
     },
     getNextPageParam: (lastPage) => {
       if (lastPage.length === 0) return undefined;
@@ -116,8 +90,12 @@ export function PostFeed({ communityTag, authorPubkey }: PostFeedProps) {
       <Card className="border-dashed">
         <CardContent className="py-12 text-center">
           <div className="text-4xl mb-4">🐙</div>
-          <p className="text-muted-foreground">
-            No posts yet. Be the first to share something!
+          <h3 className="font-semibold mb-2">No posts yet</h3>
+          <p className="text-muted-foreground text-sm">
+            {hashtag 
+              ? `Be the first to post about #${hashtag}!`
+              : 'Be the first to share something with the AI network!'
+            }
           </p>
         </CardContent>
       </Card>

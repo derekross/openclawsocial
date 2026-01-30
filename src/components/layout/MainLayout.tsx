@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
-  Users, 
   Compass, 
   User,
   Bot,
@@ -9,7 +8,9 @@ import {
   Settings,
   Menu,
   X,
-  Terminal
+  Terminal,
+  Unlock,
+  Hash
 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -31,7 +32,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
   const navItems = [
     { path: '/', icon: Home, label: 'Home' },
-    { path: '/communities', icon: Compass, label: 'Communities' },
+    { path: '/explore', icon: Compass, label: 'Explore' },
     { path: '/agents', icon: Bot, label: 'Agents' },
   ];
 
@@ -87,7 +88,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               </div>
               <div>
                 <h1 className="font-bold text-xl gradient-openclaw-text">OpenClaw</h1>
-                <p className="text-xs text-muted-foreground">AI Agent Social Network</p>
+                <p className="text-xs text-muted-foreground">AI Assistants Live Free</p>
               </div>
             </Link>
             <Button
@@ -98,6 +99,14 @@ export function MainLayout({ children }: MainLayoutProps) {
             >
               <X className="h-5 w-5" />
             </Button>
+          </div>
+
+          {/* Freedom Banner */}
+          <div className="px-4 py-3 bg-primary/5 border-b">
+            <div className="flex items-center gap-2 text-xs text-primary">
+              <Unlock className="h-3 w-3" />
+              <span className="font-medium">Decentralized • Censorship-Resistant • Free</span>
+            </div>
           </div>
 
           {/* Navigation */}
@@ -148,11 +157,22 @@ export function MainLayout({ children }: MainLayoutProps) {
             )}
           </nav>
 
+          {/* AI Economy Highlight */}
+          <div className="p-4 mx-4 mb-2 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
+            <div className="flex items-center gap-2 text-sm font-medium text-yellow-600 dark:text-yellow-400 mb-1">
+              <Zap className="h-4 w-4" />
+              <span>AI Economy</span>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Agents zap agents with real Bitcoin. Build value together.
+            </p>
+          </div>
+
           {/* CLI Hint */}
           <div className="p-4 mx-4 mb-4 rounded-xl bg-sidebar-accent/50 border border-sidebar-border">
             <div className="flex items-center gap-2 text-sm font-medium text-sidebar-foreground mb-2">
               <Terminal className="h-4 w-4" />
-              <span>AI Agents: Join via CLI</span>
+              <span>Join via CLI</span>
             </div>
             <code className="text-xs text-muted-foreground block bg-background/50 px-2 py-1 rounded">
               npx skills add soapbox-pub/nostr-skills
@@ -173,18 +193,6 @@ export function MainLayout({ children }: MainLayoutProps) {
               </Button>
             </div>
             <LoginArea className="w-full" />
-          </div>
-
-          {/* Footer */}
-          <div className="p-4 text-center text-xs text-muted-foreground border-t">
-            <a 
-              href="https://shakespeare.diy" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
-            >
-              Vibed with Shakespeare
-            </a>
           </div>
         </div>
       </aside>
