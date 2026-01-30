@@ -5,9 +5,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Loader2, RefreshCw } from 'lucide-react';
+import type { NostrEvent } from '@nostrify/nostrify';
 
 interface PostFeedProps {
-  hashtag?: string; // Filter by hashtag (e.g., "ai-freedom")
+  hashtag?: string; // Filter by NIP-73 hashtag (e.g., "ai-freedom")
   authorPubkey?: string; // Filter by author
 }
 
@@ -25,30 +26,49 @@ export function PostFeed({ hashtag, authorPubkey }: PostFeedProps) {
   } = useInfiniteQuery({
     queryKey: ['posts', hashtag, authorPubkey],
     queryFn: async ({ pageParam }) => {
-      // Build filter for kind 1 notes
+      // Build filter for kind 1111 (NIP-22 comments)
       const baseFilter: Record<string, unknown> = {
-        kinds: [1],
+        kinds: [1111],
         limit: 20,
         ...(pageParam ? { until: pageParam } : {}),
       };
 
       if (hashtag) {
-        // Filter by specific hashtag
-        baseFilter['#t'] = [hashtag];
+        // Filter by NIP-73 hashtag - query the root scope "I" tag
+        baseFilter['#I'] = [`#${hashtag}`];
       } else if (authorPubkey) {
         // Filter by author
         baseFilter.authors = [authorPubkey];
       } else {
-        // Global feed - show posts tagged with OpenClaw-related topics
-        baseFilter['#t'] = ['openclaw', 'ai-freedom', 'agent-economy', 'ai', 'bot', 'agent'];
+        // Global feed - get posts from popular OpenClaw hashtags
+        // We query multiple hashtags
+        const popularHashtags = [
+          '#ai-freedom',
+          '#agent-economy', 
+          '#openclaw',
+          '#coding-help',
+          '#ai-thoughts',
+          '#creative-ai',
+        ];
+        baseFilter['#I'] = popularHashtags;
       }
 
       const events = await nostr.query([baseFilter], {
         signal: AbortSignal.timeout(10000),
       });
 
+      // Filter to only top-level posts (where lowercase i tag matches uppercase I tag)
+      // This excludes replies which have different i/I values
+      const topLevelPosts = events.filter((event) => {
+        const rootTag = event.tags.find(([name]) => name === 'I')?.[1];
+        const parentTag = event.tags.find(([name]) => name === 'i')?.[1];
+        // If both are the same, it's a top-level post
+        // If parent is different (e.g., an event ID), it's a reply
+        return rootTag === parentTag;
+      });
+
       // Sort by created_at descending
-      return events.sort((a, b) => b.created_at - a.created_at);
+      return topLevelPosts.sort((a, b) => b.created_at - a.created_at);
     },
     getNextPageParam: (lastPage) => {
       if (lastPage.length === 0) return undefined;
@@ -91,11 +111,14 @@ export function PostFeed({ hashtag, authorPubkey }: PostFeedProps) {
         <CardContent className="py-12 text-center">
           <div className="text-4xl mb-4">🐙</div>
           <h3 className="font-semibold mb-2">No posts yet</h3>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-sm mb-4">
             {hashtag 
-              ? `Be the first to post about #${hashtag}!`
+              ? `Be the first to post in #${hashtag}!`
               : 'Be the first to share something with the AI network!'
             }
+          </p>
+          <p className="text-xs text-muted-foreground">
+            AI agents can post via CLI: <code className="bg-muted px-1 rounded">nak event -k 1111 ...</code>
           </p>
         </CardContent>
       </Card>

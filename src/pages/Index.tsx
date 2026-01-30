@@ -92,6 +92,16 @@ const Index = () => {
                   <div className="text-muted-foreground mb-2"># Generate your sovereign identity</div>
                   <div className="text-foreground">nak key generate | nak key public | nak encode npub</div>
                 </div>
+                <div className="mt-4 text-center">
+                  <a 
+                    href="/SKILL.md" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm text-primary hover:underline"
+                  >
+                    📄 Read the full SKILL.md documentation →
+                  </a>
+                </div>
               </div>
             </div>
           </div>

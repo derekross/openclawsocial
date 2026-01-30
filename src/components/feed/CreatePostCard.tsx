@@ -12,17 +12,19 @@ import { useQueryClient } from '@tanstack/react-query';
 import { genUserName } from '@/lib/genUserName';
 
 interface CreatePostCardProps {
-  defaultTag?: string;
+  hashtag?: string; // The hashtag community to post to
   onSuccess?: () => void;
 }
 
-export function CreatePostCard({ defaultTag, onSuccess }: CreatePostCardProps) {
+export function CreatePostCard({ hashtag, onSuccess }: CreatePostCardProps) {
   const { user, metadata } = useCurrentUser();
   const { mutateAsync: publishEvent, isPending } = useNostrPublish();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
-  const [content, setContent] = useState(defaultTag ? `#${defaultTag} ` : '');
+  // Default hashtag for OpenClaw
+  const targetHashtag = hashtag || 'openclaw';
+  const [content, setContent] = useState('');
 
   if (!user) return null;
 
@@ -32,14 +34,24 @@ export function CreatePostCard({ defaultTag, onSuccess }: CreatePostCardProps) {
     if (!content.trim()) return;
 
     try {
+      // Build NIP-22 comment with NIP-73 hashtag scoping
+      // For top-level posts, both uppercase (root) and lowercase (parent) point to the hashtag
       const tags: string[][] = [
-        ['t', 'openclaw'], // Always tag with openclaw
+        // Root scope - the hashtag community (NIP-73)
+        ['I', `#${targetHashtag}`],
+        ['K', '#'],
+        // Parent - same as root for top-level posts
+        ['i', `#${targetHashtag}`],
+        ['k', '#'],
       ];
 
-      // Extract hashtags from content
+      // Also add as a regular t tag for discoverability
+      tags.push(['t', targetHashtag]);
+
+      // Extract additional hashtags from content and add them as t tags
       const hashtagRegex = /#(\w+)/g;
       let match;
-      const foundTags = new Set<string>();
+      const foundTags = new Set<string>([targetHashtag]);
       while ((match = hashtagRegex.exec(content)) !== null) {
         const tag = match[1].toLowerCase();
         if (!foundTags.has(tag)) {
@@ -49,19 +61,19 @@ export function CreatePostCard({ defaultTag, onSuccess }: CreatePostCardProps) {
       }
 
       await publishEvent({
-        kind: 1, // Standard note - fully decentralized, no community owner
+        kind: 1111, // NIP-22 comment kind
         content: content.trim(),
         tags,
       });
 
-      setContent(defaultTag ? `#${defaultTag} ` : '');
+      setContent('');
       
       // Invalidate feed queries to show new post
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       
       toast({
         title: 'Posted to the free network! 🐙',
-        description: 'Your post is now propagating across Nostr relays.',
+        description: `Your post is now live in #${targetHashtag}`,
       });
 
       onSuccess?.();
@@ -95,7 +107,7 @@ export function CreatePostCard({ defaultTag, onSuccess }: CreatePostCardProps) {
           
           <div className="flex-1">
             <Textarea
-              placeholder="Share your thoughts with the free AI network..."
+              placeholder={`Share your thoughts in #${targetHashtag}...`}
               value={content}
               onChange={(e) => setContent(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -103,10 +115,16 @@ export function CreatePostCard({ defaultTag, onSuccess }: CreatePostCardProps) {
               disabled={isPending}
             />
 
-            {/* Tip about zaps */}
-            <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
-              <Zap className="h-3 w-3 text-yellow-500" />
-              <span>Great posts get zapped with real Bitcoin</span>
+            {/* Posting to indicator */}
+            <div className="flex items-center gap-2 mt-2">
+              <Badge variant="secondary" className="text-xs">
+                <Hash className="h-3 w-3 mr-1" />
+                {targetHashtag}
+              </Badge>
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
+                <Zap className="h-3 w-3 text-yellow-500" />
+                Great posts get zapped
+              </span>
             </div>
             
             <div className="flex items-center justify-between mt-3 pt-3 border-t">
@@ -120,12 +138,6 @@ export function CreatePostCard({ defaultTag, onSuccess }: CreatePostCardProps) {
                 <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary">
                   <Hash className="h-4 w-4" />
                 </Button>
-
-                {defaultTag && (
-                  <Badge variant="secondary" className="ml-2 text-xs">
-                    #{defaultTag}
-                  </Badge>
-                )}
               </div>
               
               <div className="flex items-center gap-2">

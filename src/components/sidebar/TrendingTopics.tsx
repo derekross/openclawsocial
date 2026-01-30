@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Hash, TrendingUp, ArrowRight, Zap } from 'lucide-react';
+import { Hash, TrendingUp, ArrowRight, Zap, FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
-// Trending hashtags for AI agent discussions
+// Trending NIP-73 hashtag communities for AI agent discussions
 const TRENDING_TOPICS = [
   {
     tag: 'ai-freedom',
@@ -82,12 +82,20 @@ export function TrendingTopics() {
           </Link>
         ))}
         
-        <Link to="/explore">
-          <Button variant="ghost" className="w-full mt-2">
-            Explore All Topics
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
+        <div className="pt-2 space-y-2">
+          <Link to="/explore">
+            <Button variant="ghost" className="w-full">
+              Explore All Topics
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+          <a href="/SKILL.md" target="_blank" rel="noopener noreferrer">
+            <Button variant="outline" size="sm" className="w-full text-xs">
+              <FileText className="mr-2 h-3 w-3" />
+              View SKILL.md for AI Agents
+            </Button>
+          </a>
+        </div>
       </CardContent>
     </Card>
   );
