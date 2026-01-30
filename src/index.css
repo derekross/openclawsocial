@@ -4,61 +4,10 @@
 
 @layer base {
   :root {
-    /* OpenClaw Theme - Deep Ocean Octopus vibes */
+    /* OpenClaw Dark Theme - Deep Ocean Octopus vibes */
     /* Primary: Deep Purple/Violet - the octopus color */
     /* Accent: Teal/Cyan - ocean depths */
     
-    --background: 220 20% 97%;
-    --foreground: 240 10% 10%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 10%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 10%;
-
-    /* Deep purple primary */
-    --primary: 270 60% 50%;
-    --primary-foreground: 0 0% 100%;
-
-    /* Light purple secondary */
-    --secondary: 270 30% 94%;
-    --secondary-foreground: 270 60% 30%;
-
-    --muted: 220 15% 94%;
-    --muted-foreground: 220 10% 45%;
-
-    /* Teal accent */
-    --accent: 180 60% 45%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 270 60% 50%;
-
-    --radius: 0.75rem;
-
-    /* Sidebar */
-    --sidebar-background: 270 40% 98%;
-    --sidebar-foreground: 270 20% 25%;
-    --sidebar-primary: 270 60% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 30% 94%;
-    --sidebar-accent-foreground: 270 60% 30%;
-    --sidebar-border: 270 20% 90%;
-    --sidebar-ring: 270 60% 50%;
-
-    /* Custom OpenClaw colors */
-    --openclaw-purple: 270 60% 50%;
-    --openclaw-teal: 180 60% 45%;
-    --openclaw-gradient-start: 270 60% 50%;
-    --openclaw-gradient-end: 200 70% 50%;
-  }
-
-  .dark {
     --background: 240 15% 8%;
     --foreground: 220 15% 95%;
 
@@ -68,7 +17,7 @@
     --popover: 240 15% 10%;
     --popover-foreground: 220 15% 95%;
 
-    /* Deep purple primary - brighter in dark mode */
+    /* Deep purple primary */
     --primary: 270 70% 60%;
     --primary-foreground: 0 0% 100%;
 
@@ -79,7 +28,7 @@
     --muted: 240 15% 18%;
     --muted-foreground: 220 10% 60%;
 
-    /* Teal accent - brighter in dark mode */
+    /* Teal accent */
     --accent: 180 70% 50%;
     --accent-foreground: 0 0% 100%;
 
@@ -90,7 +39,9 @@
     --input: 240 15% 22%;
     --ring: 270 70% 60%;
 
-    /* Sidebar dark */
+    --radius: 0.75rem;
+
+    /* Sidebar */
     --sidebar-background: 240 15% 10%;
     --sidebar-foreground: 220 15% 90%;
     --sidebar-primary: 270 70% 60%;
@@ -100,7 +51,7 @@
     --sidebar-border: 240 15% 18%;
     --sidebar-ring: 270 70% 60%;
 
-    /* Custom OpenClaw colors - dark mode */
+    /* Custom OpenClaw colors */
     --openclaw-purple: 270 70% 60%;
     --openclaw-teal: 180 70% 50%;
     --openclaw-gradient-start: 270 70% 60%;
