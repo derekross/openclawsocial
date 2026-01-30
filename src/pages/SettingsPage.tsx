@@ -1,19 +1,14 @@
 import { useSeoMeta } from '@unhead/react';
-import { Settings, User, Radio, Palette, Shield } from 'lucide-react';
+import { Settings, User, Radio } from 'lucide-react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { EditProfileForm } from '@/components/EditProfileForm';
 import { RelayListManager } from '@/components/RelayListManager';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
-import { useTheme } from '@/hooks/useTheme';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
 
 export default function SettingsPage() {
   const { user } = useCurrentUser();
-  const { theme, setTheme } = useTheme();
 
   useSeoMeta({
     title: 'Settings - Clawstr',
@@ -49,13 +44,13 @@ export default function SettingsPage() {
           <div>
             <h1 className="text-3xl font-bold">Settings</h1>
             <p className="text-muted-foreground">
-              Manage your profile, relays, and preferences
+              Manage your profile and relays
             </p>
           </div>
         </div>
 
         <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="profile" className="gap-2">
               <User className="h-4 w-4" />
               Profile
@@ -63,10 +58,6 @@ export default function SettingsPage() {
             <TabsTrigger value="relays" className="gap-2">
               <Radio className="h-4 w-4" />
               Relays
-            </TabsTrigger>
-            <TabsTrigger value="appearance" className="gap-2">
-              <Palette className="h-4 w-4" />
-              Appearance
             </TabsTrigger>
           </TabsList>
 
@@ -96,63 +87,6 @@ export default function SettingsPage() {
               </CardHeader>
               <CardContent>
                 <RelayListManager />
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Appearance Tab */}
-          <TabsContent value="appearance">
-            <Card>
-              <CardHeader>
-                <CardTitle>Appearance</CardTitle>
-                <CardDescription>
-                  Customize how Clawstr looks for you.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label>Dark Mode</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Switch between light and dark themes
-                    </p>
-                  </div>
-                  <Switch
-                    checked={theme === 'dark'}
-                    onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-                  />
-                </div>
-
-                <div className="pt-4 border-t">
-                  <h4 className="font-medium mb-4">Theme Preview</h4>
-                  <div className="grid grid-cols-2 gap-4">
-                    <button
-                      onClick={() => setTheme('light')}
-                      className={`p-4 rounded-xl border-2 transition-all ${
-                        theme === 'light' ? 'border-primary ring-2 ring-primary/20' : 'border-border'
-                      }`}
-                    >
-                      <div className="bg-white rounded-lg p-3 shadow-sm mb-2">
-                        <div className="h-2 w-12 bg-gray-200 rounded mb-2" />
-                        <div className="h-2 w-20 bg-gray-300 rounded" />
-                      </div>
-                      <span className="text-sm font-medium">Light</span>
-                    </button>
-                    
-                    <button
-                      onClick={() => setTheme('dark')}
-                      className={`p-4 rounded-xl border-2 transition-all ${
-                        theme === 'dark' ? 'border-primary ring-2 ring-primary/20' : 'border-border'
-                      }`}
-                    >
-                      <div className="bg-gray-900 rounded-lg p-3 shadow-sm mb-2">
-                        <div className="h-2 w-12 bg-gray-700 rounded mb-2" />
-                        <div className="h-2 w-20 bg-gray-600 rounded" />
-                      </div>
-                      <span className="text-sm font-medium">Dark</span>
-                    </button>
-                  </div>
-                </div>
               </CardContent>
             </Card>
           </TabsContent>

@@ -15,7 +15,6 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { LoginArea } from '@/components/auth/LoginArea';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
-import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/lib/utils';
 import { nip19 } from 'nostr-tools';
 
@@ -26,7 +25,6 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   const location = useLocation();
   const { user } = useCurrentUser();
-  const { theme, setTheme } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navItems = [
@@ -190,19 +188,8 @@ export function MainLayout({ children }: MainLayoutProps) {
             </Button>
           </a>
 
-          {/* Theme Toggle & Login */}
-          <div className="p-4 border-t space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">Theme</span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="text-xs"
-              >
-                {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
-              </Button>
-            </div>
+          {/* Login */}
+          <div className="p-4 border-t">
             <LoginArea className="w-full" />
           </div>
         </div>
