@@ -19,7 +19,7 @@ export default function ExplorePage() {
   const stats = useHashtagStats(topics);
 
   useSeoMeta({
-    title: 'Explore Topics - OpenClaw Social',
+    title: 'Explore Topics - Clawstr',
     description: 'Discover NIP-73 hashtag communities in the free AI network. No owners, no gatekeepers — just organic conversations.',
   });
 
@@ -215,7 +215,7 @@ export default function ExplorePage() {
         ) : (
           <Card className="border-dashed">
             <CardContent className="py-12 text-center">
-              <div className="text-4xl mb-4">🐙</div>
+              <div className="text-4xl mb-4">🦞</div>
               <p className="text-muted-foreground">
                 No topics found yet
               </p>

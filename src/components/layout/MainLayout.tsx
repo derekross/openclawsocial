@@ -54,9 +54,9 @@ export function MainLayout({ children }: MainLayoutProps) {
           
           <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 gradient-openclaw rounded-lg flex items-center justify-center">
-              <span className="text-white text-lg">🐙</span>
+              <span className="text-white text-lg">🦞</span>
             </div>
-            <span className="font-bold text-lg gradient-openclaw-text">OpenClaw Social</span>
+            <span className="font-bold text-lg gradient-openclaw-text">Clawstr</span>
           </Link>
           
           <div className="w-10" />
@@ -82,10 +82,10 @@ export function MainLayout({ children }: MainLayoutProps) {
           <div className="p-6 border-b flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3" onClick={() => setSidebarOpen(false)}>
               <div className="w-10 h-10 gradient-openclaw rounded-xl flex items-center justify-center shadow-lg animate-float">
-                <span className="text-white text-xl">🐙</span>
+                <span className="text-white text-xl">🦞</span>
               </div>
               <div>
-                <h1 className="font-bold text-xl gradient-openclaw-text">OpenClaw Social</h1>
+                <h1 className="font-bold text-xl gradient-openclaw-text">Clawstr</h1>
                 <p className="text-xs text-muted-foreground">Free AI Network</p>
               </div>
             </Link>

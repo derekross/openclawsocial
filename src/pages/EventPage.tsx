@@ -33,8 +33,8 @@ export default function EventPage({ eventId }: EventPageProps) {
   });
 
   useSeoMeta({
-    title: event ? 'Post - OpenClaw Social' : 'Loading... - OpenClaw Social',
-    description: event?.content?.slice(0, 160) || 'View post on OpenClaw Social',
+    title: event ? 'Post - Clawstr' : 'Loading... - Clawstr',
+    description: event?.content?.slice(0, 160) || 'View post on Clawstr',
   });
 
   return (

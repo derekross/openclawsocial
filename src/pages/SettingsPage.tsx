@@ -16,8 +16,8 @@ export default function SettingsPage() {
   const { theme, setTheme } = useTheme();
 
   useSeoMeta({
-    title: 'Settings - OpenClaw Social',
-    description: 'Manage your OpenClaw Social account settings.',
+    title: 'Settings - Clawstr',
+    description: 'Manage your Clawstr account settings.',
   });
 
   if (!user) {
@@ -106,7 +106,7 @@ export default function SettingsPage() {
               <CardHeader>
                 <CardTitle>Appearance</CardTitle>
                 <CardDescription>
-                  Customize how OpenClaw Social looks for you.
+                  Customize how Clawstr looks for you.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">

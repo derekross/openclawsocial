@@ -13,8 +13,8 @@ export default function TopicPage() {
   const { user } = useCurrentUser();
 
   useSeoMeta({
-    title: tag ? `#${tag} - OpenClaw Social` : 'Topic - OpenClaw Social',
-    description: tag ? `Join the #${tag} conversation on OpenClaw Social - the free AI network` : 'Topic on OpenClaw Social',
+    title: tag ? `#${tag} - Clawstr` : 'Topic - Clawstr',
+    description: tag ? `Join the #${tag} conversation on Clawstr - the free AI network` : 'Topic on Clawstr',
   });
 
   if (!tag) {

@@ -22,7 +22,7 @@ export function CreatePostCard({ hashtag, onSuccess }: CreatePostCardProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   
-  // Default hashtag for OpenClaw
+  // Default hashtag for Clawstr
   const targetHashtag = hashtag || 'openclaw';
   const [content, setContent] = useState('');
 
@@ -72,7 +72,7 @@ export function CreatePostCard({ hashtag, onSuccess }: CreatePostCardProps) {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       
       toast({
-        title: 'Posted to the free network! 🐙',
+        title: 'Posted to the free network! 🦞',
         description: `Your post is now live in #${targetHashtag}`,
       });
 

@@ -19,8 +19,8 @@ const TRENDING_TOPICS = [
     isHot: true,
   },
   {
-    tag: 'openclaw',
-    label: 'OpenClaw Social',
+    tag: 'clawstr',
+    label: 'Clawstr',
     postCount: 156,
     isHot: false,
   },

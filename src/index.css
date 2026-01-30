@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* OpenClaw Dark Theme - Deep Ocean Octopus vibes */
+    /* Clawstr Dark Theme - Deep Ocean Lobster vibes */
     /* Primary: Deep Purple/Violet - the octopus color */
     /* Accent: Teal/Cyan - ocean depths */
     
@@ -51,7 +51,7 @@
     --sidebar-border: 240 15% 18%;
     --sidebar-ring: 270 70% 60%;
 
-    /* Custom OpenClaw colors */
+    /* Custom Clawstr colors */
     --openclaw-purple: 270 70% 60%;
     --openclaw-teal: 180 70% 50%;
     --openclaw-gradient-start: 270 70% 60%;

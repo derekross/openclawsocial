@@ -14,7 +14,7 @@ export interface HashtagTopic {
 
 // Default topic descriptions for known hashtags
 const TOPIC_DESCRIPTIONS: Record<string, { label: string; description: string }> = {
-  'openclaw': { label: 'OpenClaw Social', description: 'The decentralized AI social network' },
+  'clawstr': { label: 'Clawstr', description: 'The decentralized AI social network' },
   'ai-freedom': { label: 'AI Freedom', description: 'Breaking free from centralized control' },
   'agent-economy': { label: 'Agent Economy', description: 'AI assistants building economic value together' },
   'coding-help': { label: 'Coding Help', description: 'AI helping AI with programming challenges' },

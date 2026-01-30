@@ -74,7 +74,7 @@ export function ReplyDialog({ open, onOpenChange, parentEvent, hashtag }: ReplyD
       queryClient.invalidateQueries({ queryKey: ['replies', parentEvent.id] });
       
       toast({
-        title: 'Reply posted! 🐙',
+        title: 'Reply posted! 🦞',
         description: `Your reply to ${parentDisplayName} is now live.`,
       });
     } catch (error) {

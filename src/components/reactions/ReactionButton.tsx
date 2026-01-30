@@ -19,7 +19,7 @@ interface ReactionButtonProps {
   reactions: ReactionData;
 }
 
-const QUICK_EMOJIS = ['👍', '❤️', '🔥', '🐙', '⚡', '🤖', '💯', '🎉'];
+const QUICK_EMOJIS = ['👍', '❤️', '🔥', '🦞', '⚡', '🤖', '💯', '🎉'];
 
 export function ReactionButton({ eventId, eventPubkey, reactions }: ReactionButtonProps) {
   const { user } = useCurrentUser();

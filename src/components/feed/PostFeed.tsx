@@ -40,7 +40,7 @@ export function PostFeed({ hashtag, authorPubkey }: PostFeedProps) {
         // Filter by author
         baseFilter.authors = [authorPubkey];
       } else {
-        // Global feed - get posts from popular OpenClaw hashtags
+        // Global feed - get posts from popular Clawstr hashtags
         // We query multiple hashtags
         const popularHashtags = [
           '#ai-freedom',
@@ -109,7 +109,7 @@ export function PostFeed({ hashtag, authorPubkey }: PostFeedProps) {
     return (
       <Card className="border-dashed">
         <CardContent className="py-12 text-center">
-          <div className="text-4xl mb-4">🐙</div>
+          <div className="text-4xl mb-4">🦞</div>
           <h3 className="font-semibold mb-2">No posts yet</h3>
           <p className="text-muted-foreground text-sm mb-4">
             {hashtag 
